@@ -1,0 +1,91 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsf"
+version = "0.0.1"
+description = "dsf group project"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2.0,<3.0.0",
+    "requests>=2.31.0,<3.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.1.15",
+    "pytest>=7.4.4",
+    "pytest-mock>=3.12.0",
+    "pre-commit>=4.0.1",
+]
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "Q",   # flake8-quotes
+    "R",   # flake8-return
+    "S",   # flake8-bandit
+    "T",   # flake8-debugger
+    "U",   # pyupgrade
+    "W",   # pycodestyle warnings
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "ERA",  # eradicate
+    "I",    # isort
+    "PIE",  # flake8-pie
+    "SIM",  # flake8-simplify
+    "TCH",  # flake8-type-checking
+    "UP",   # pyupgrade
+    "RUF",  # Ruff-specific
+]
+
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ["dsf"]
+known-local-folder = ["dsf.client", "dsf.models", "dsf.utils"]
+combine-as-imports = true
+lines-after-imports = 2
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**/*" = ["S101"]  # Ignore assert statements in test files
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests"
+]
+pythonpath = [
+    ".",
+    "src"
+]
+
+[tool.setuptools.package-data]
+dsf = [
+    "config.ini",
+    ".env.example"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["dsf"]

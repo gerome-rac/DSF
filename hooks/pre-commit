@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Get all staged Python files
+files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$')
+if [ -n "$files" ]; then
+    echo "Running Ruff on Python files..."
+    ruff check --fix $files
+    ruff format $files
+    
+   
+    git add $files
+fi
+
+exit 0
